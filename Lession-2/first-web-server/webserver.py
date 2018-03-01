@@ -10,8 +10,19 @@ class WebServerHandler(BaseHTTPRequestHandler):
             message = "<html><body>Hello!</body></html>"
             self.wfile.write(bytes(message, 'utf8'))
             return
+
+        if self.path.endswith("/hola"):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            message = "<html><body> &#161 Hola ! </body></html>"
+            self.wfile.write(bytes(message, 'utf8'))
+            return
+
         else:
             self.send_error(404, 'File Not Found: %s' % self.path)
+
+
 
 def main():
     try:
